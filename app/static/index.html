@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IITGN E-Journal Discovery Assistant</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">Welcome to the Library</p>
+        <h1>Library Chatbot</h1>
+        <p class="hero-copy">
+          Use the floating chatbot in the bottom-right corner to search journals, subjects,
+          publishers, and publication details in natural language.
+        </p>
+        <div class="hero-features">
+          <span class="feature-pill">Natural language queries</span>
+          <span class="feature-pill">Filter by subject, year, or status</span>
+          <span class="feature-pill">Fast journal recommendations</span>
+        </div>
+        <button class="hero-button" id="openChatbotButton">Open Chatbot</button>
+      </div>
+    </main>
+
+    <script src="/static/widget.js"></script>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const widget = new JournalSearchWidget({ apiBaseUrl: "http://localhost:8000" });
+        const openChatbotButton = document.getElementById("openChatbotButton");
+        if (openChatbotButton) {
+          openChatbotButton.addEventListener("click", () => widget.togglePanel());
+        }
+      });
+    </script>
+  </body>
+</html>

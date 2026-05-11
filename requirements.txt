@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+sentence-transformers
+faiss-cpu
+sqlalchemy
+pydantic
+python-dotenv
+pandas
+openpyxl
