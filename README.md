@@ -79,6 +79,26 @@ Try searching for queries like:
 - *"materials science journals"*
 - *"computer science journals after 2015"*
 
+## Deploying to a Real Library Website
+
+Transferring this chatbot from the local dummy page to an actual library website is seamless because the `embed.js` script acts as a self-contained, "drop-in" widget.
+
+### 1. Host the Backend Server
+Currently, the chatbot runs on `http://localhost:8000`. To make it accessible over the internet, host the FastAPI backend on a public server (e.g., AWS, DigitalOcean, Heroku). 
+* Assume your new server URL is `https://api.mylibrarychatbot.com`.
+
+### 2. Add One Line of HTML
+Provide the library webmaster with a single line of HTML to add to their website. They should place this right before the closing `</body>` tag on any page where they want the chatbot to appear:
+
+```html
+<script src="https://api.mylibrarychatbot.com/static/embed.js"></script>
+```
+
+**Why it works automatically:**
+* **Auto-detects the API:** The script dynamically detects its own `<script src="...">` URL to know exactly where to send search queries.
+* **Self-Contained Styling:** All CSS is injected dynamically by JavaScript. It will not conflict with the library's existing website styles.
+* **CORS is handled:** The FastAPI backend is configured to accept Cross-Origin Resource Sharing (CORS), allowing search requests from the library's domain.
+
 ## Documentation
 
 - **[CONCEPT.md](CONCEPT.md)** — How the system works: semantic search, embeddings, FAISS, and the widget architecture.
