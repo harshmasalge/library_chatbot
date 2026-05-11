@@ -7,9 +7,8 @@ class SearchRequest(BaseModel):
     query: str
     top_k: Optional[int] = None
     subject: Optional[str] = None
-    active: Optional[str] = None
-    year_min: Optional[int] = None
-    year_max: Optional[int] = None
+    collectionname: Optional[str] = None
+    main_subject: Optional[str] = None
 
 
 class JournalItem(BaseModel):
@@ -20,6 +19,7 @@ class JournalItem(BaseModel):
     publication_title: str
     subject_keywords: Optional[str]
     subjectname: Optional[str]
+    collectionname: Optional[str]
     main_subject: Optional[str]
     supergroup: Optional[str]
     publisher_name: Optional[str]

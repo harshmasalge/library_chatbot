@@ -55,6 +55,7 @@ def build_records(df: pd.DataFrame) -> list[Journal]:
             publication_title=normalize_text(row.get("publication_title")) or "",
             subject_keywords=normalize_text(row.get("Subject Keywords")),
             subjectname=normalize_text(row.get("subjectname")),
+            collectionname=normalize_text(row.get("collectionname")),
             main_subject=normalize_text(row.get("Main Subject")),
             supergroup=normalize_text(row.get("Supergroup")),
             publisher_name=normalize_text(row.get("publisher_name")),

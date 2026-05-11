@@ -47,20 +47,59 @@ class JournalSearchWidget {
                     <input type="text" id="widgetSubject" placeholder="e.g. Computer Science" />
                   </div>
                   <div class="filter-group">
-                    <label for="widgetActive">Status (optional)</label>
-                    <select id="widgetActive">
-                      <option value="">All</option>
-                      <option value="active">Active</option>
-                      <option value="inactive">Inactive</option>
+                    <label for="widgetCollectionName">Collection (optional)</label>
+                    <select id="widgetCollectionName">
+                      <option value="">All Collections</option>
+                      <option value="AAAS- Science">AAAS- Science</option>
+                      <option value="ACM Digital Library">ACM Digital Library</option>
+                      <option value="American Chemical Society Journals">American Chemical Society Journals</option>
+                      <option value="American Institute of Aeronautics and Astronautics (AIAA) Journals">American Institute of Aeronautics and Astronautics (AIAA) Journals</option>
+                      <option value="American Institute of Physics Journals">American Institute of Physics Journals</option>
+                      <option value="American Mathematical Society Journals">American Mathematical Society Journals</option>
+                      <option value="American Meteorological Society">American Meteorological Society</option>
+                      <option value="American Physical Society - ALL">American Physical Society - ALL</option>
+                      <option value="American Society for Microbiology Journals">American Society for Microbiology Journals</option>
+                      <option value="Annual Reviews Journals">Annual Reviews Journals</option>
+                      <option value="ASCE Journals Online">ASCE Journals Online</option>
+                      <option value="ASME Journals Online">ASME Journals Online</option>
+                      <option value="Bentham Science Journals">Bentham Science Journals</option>
+                      <option value="BMJ Journals">BMJ Journals</option>
+                      <option value="Cambridge University Press Journals">Cambridge University Press Journals</option>
+                      <option value="Canadian Science Publishing">Canadian Science Publishing</option>
+                      <option value="Cold Spring Harbor Laboratory Press Journals">Cold Spring Harbor Laboratory Press Journals</option>
+                      <option value="Duke University Press">Duke University Press</option>
+                      <option value="Elsevier ScienceDirect Journals">Elsevier ScienceDirect Journals</option>
+                      <option value="Emerald Publishing Journals">Emerald Publishing Journals</option>
+                      <option value="GeoScience World + GeoRef (GSW)">GeoScience World + GeoRef (GSW)</option>
+                      <option value="ICE Publishing Journals">ICE Publishing Journals</option>
+                      <option value="IEEE Journals">IEEE Journals</option>
+                      <option value="Inderscience Enterprises Ltd.">Inderscience Enterprises Ltd.</option>
+                      <option value="IndianJournals.com">IndianJournals.com</option>
+                      <option value="Institute of Physics Journals">Institute of Physics Journals</option>
+                      <option value="JSTOR">JSTOR</option>
+                      <option value="Lippincott Williams & Wilkins (Wolters Kluwer) Journals">Lippincott Williams & Wilkins (Wolters Kluwer) Journals</option>
+                      <option value="MITCogNet">MITCogNet</option>
+                      <option value="National Academy of Sciences">National Academy of Sciences</option>
+                      <option value="now publishers">now publishers</option>
+                      <option value="Oxford University Press Journals">Oxford University Press Journals</option>
+                      <option value="Project Euclid Prime">Project Euclid Prime</option>
+                      <option value="Project Muse">Project Muse</option>
+                      <option value="Royal Society of Chemistry (RSC) Journals">Royal Society of Chemistry (RSC) Journals</option>
+                      <option value="Sage Publishing Journals">Sage Publishing Journals</option>
+                      <option value="SIAM">SIAM</option>
+                      <option value="SPIE Digital Library">SPIE Digital Library</option>
+                      <option value="Springer Nature Journals">Springer Nature Journals</option>
+                      <option value="Taylor and Francis Journals">Taylor and Francis Journals</option>
+                      <option value="Techno Press">Techno Press</option>
+                      <option value="Thieme Journals">Thieme Journals</option>
+                      <option value="University of Chicago Press">University of Chicago Press</option>
+                      <option value="Wiley Journals">Wiley Journals</option>
+                      <option value="World Scientific Publishing Journals">World Scientific Publishing Journals</option>
                     </select>
                   </div>
                   <div class="filter-group">
-                    <label for="widgetYearMin">Year Min (optional)</label>
-                    <input type="number" id="widgetYearMin" placeholder="e.g. 2015" />
-                  </div>
-                  <div class="filter-group">
-                    <label for="widgetYearMax">Year Max (optional)</label>
-                    <input type="number" id="widgetYearMax" placeholder="e.g. 2026" />
+                    <label for="widgetMainSubject">Main Subject (optional)</label>
+                    <input type="text" id="widgetMainSubject" placeholder="e.g. Life Sciences" />
                   </div>
                 </div>
               </form>
@@ -88,9 +127,8 @@ class JournalSearchWidget {
       form: widgetDiv.querySelector("#widgetSearchForm"),
       query: widgetDiv.querySelector("#widgetQueryInput"),
       subject: widgetDiv.querySelector("#widgetSubject"),
-      active: widgetDiv.querySelector("#widgetActive"),
-      yearMin: widgetDiv.querySelector("#widgetYearMin"),
-      yearMax: widgetDiv.querySelector("#widgetYearMax"),
+      collectionName: widgetDiv.querySelector("#widgetCollectionName"),
+      mainSubject: widgetDiv.querySelector("#widgetMainSubject"),
       searchBtn: widgetDiv.querySelector("#widgetSearchBtn"),
       results: widgetDiv.querySelector("#widgetResults"),
       resultsList: widgetDiv.querySelector("#widgetResultsList"),
@@ -142,9 +180,8 @@ class JournalSearchWidget {
     this.elements.resultCount.textContent = '';
 
     const subject = this.elements.subject.value.trim() || null;
-    const active = this.elements.active.value || null;
-    const yearMinValue = this.elements.yearMin.value.trim();
-    const yearMaxValue = this.elements.yearMax.value.trim();
+    const collectionname = this.elements.collectionName.value || null;
+    const main_subject = this.elements.mainSubject.value.trim() || null;
 
     try {
       const response = await fetch(`${this.apiBaseUrl}/search`, {
@@ -156,9 +193,8 @@ class JournalSearchWidget {
           query,
           top_k: 5,
           subject,
-          active,
-          year_min: yearMinValue ? parseInt(yearMinValue, 10) : null,
-          year_max: yearMaxValue ? parseInt(yearMaxValue, 10) : null,
+          collectionname,
+          main_subject,
         }),
       });
 
@@ -191,10 +227,9 @@ class JournalSearchWidget {
         </div>
         <div class="journal-meta">
           ${journal.publisher_name ? `<div class="meta-item"><span class="meta-label">Publisher</span><span class="meta-value">${this.escapeHtml(journal.publisher_name)}</span></div>` : ""}
+          ${journal.collectionname ? `<div class="meta-item"><span class="meta-label">Collection</span><span class="meta-value">${this.escapeHtml(journal.collectionname)}</span></div>` : ""}
           ${journal.subjectname ? `<div class="meta-item"><span class="meta-label">Subject</span><span class="meta-value">${this.escapeHtml(journal.subjectname)}</span></div>` : ""}
           ${journal.main_subject ? `<div class="meta-item"><span class="meta-label">Main Subject</span><span class="meta-value">${this.escapeHtml(journal.main_subject)}</span></div>` : ""}
-          ${journal.coverage_y ? `<div class="meta-item"><span class="meta-label">Coverage</span><span class="meta-value">${this.escapeHtml(journal.coverage_y)}</span></div>` : ""}
-          ${journal.active_or_inactive_y ? `<div class="meta-item"><span class="meta-label">Status</span><span class="meta-value">${this.escapeHtml(journal.active_or_inactive_y)}</span></div>` : ""}
         </div>
       </div>
     `

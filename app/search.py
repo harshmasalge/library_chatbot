@@ -37,8 +37,10 @@ class SemanticSearchEngine:
     def _apply_filters(self, query, filters: Dict[str, Optional[str]]) -> None:
         if filters.get("subject"):
             query = query.filter(Journal.subjectname.ilike(f"%{filters['subject']}%"))
-        if filters.get("active"):
-            query = query.filter(Journal.active_or_inactive_y.ilike(f"%{filters['active']}%"))
+        if filters.get("collectionname"):
+            query = query.filter(Journal.collectionname.ilike(f"%{filters['collectionname']}%"))
+        if filters.get("main_subject"):
+            query = query.filter(Journal.main_subject.ilike(f"%{filters['main_subject']}%"))
         return query
 
     def search(self, text: str, top_k: Optional[int] = None, filters: Optional[Dict[str, Optional[str]]] = None) -> List[Journal]:

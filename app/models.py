@@ -11,6 +11,7 @@ class Journal(Base):
     publication_title = Column(Text, nullable=False)
     subject_keywords = Column(Text, nullable=True)
     subjectname = Column(Text, nullable=True)
+    collectionname = Column(Text, nullable=True)
     main_subject = Column(Text, nullable=True)
     supergroup = Column(Text, nullable=True)
     publisher_name = Column(Text, nullable=True)

@@ -152,11 +152,13 @@
       color: var(--accent-color);
       font-size: 0.9rem;
       margin-bottom: 4px;
+      text-transform: capitalize;
     }
 
     .ejournal-widget-result-meta {
       font-size: 0.8rem;
       color: #6b7280;
+      text-transform: capitalize;
     }
 
     .ejournal-widget-loading {
@@ -282,7 +284,9 @@
         <div class="ejournal-widget-result-item">
           <div class="ejournal-widget-result-title">${escapeHtml(journal.publication_title)}</div>
           ${journal.publisher_name ? `<div class="ejournal-widget-result-meta">Publisher: ${escapeHtml(journal.publisher_name)}</div>` : ""}
+          ${journal.collectionname ? `<div class="ejournal-widget-result-meta">Collection: ${escapeHtml(journal.collectionname)}</div>` : ""}
           ${journal.subjectname ? `<div class="ejournal-widget-result-meta">Subject: ${escapeHtml(journal.subjectname)}</div>` : ""}
+          ${journal.main_subject ? `<div class="ejournal-widget-result-meta">Main Subject: ${escapeHtml(journal.main_subject)}</div>` : ""}
           ${journal.title_url ? `<a href="${escapeHtml(journal.title_url)}" target="_blank" style="font-size: 0.8rem; color: #3b82f6;">Visit →</a>` : ""}
         </div>
       `

@@ -62,7 +62,8 @@ def search_journals(request: SearchRequest) -> SearchResponse:
 
     filters = {
         "subject": request.subject,
-        "active": request.active,
+        "collectionname": request.collectionname,
+        "main_subject": request.main_subject,
     }
     results = search_engine.search(request.query, top_k=request.top_k or TOP_K_DEFAULT, filters=filters)
 
