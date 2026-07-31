@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  chatbot:
+    build: .
+    ports:
+      - "8000:8000"
+    container_name: library_chatbot
+    restart: unless-stopped
+    environment:
+      - TOP_K_DEFAULT=10

@@ -374,7 +374,7 @@ The defaults work out of the box for local development — no changes needed unl
 This reads the Excel dataset, populates the SQLite database, generates embeddings, and builds the FAISS index:
 
 ```bash
-python scripts/index_data.py --input EJournals_database.xlsx --force
+python -m scripts.index_data --input EJournals_database.xlsx --force
 ```
 
 | Flag | Purpose |

@@ -47,7 +47,7 @@ This installs FastAPI, Sentence Transformers, FAISS, SQLAlchemy, and other requi
 ### 4. Build the Search Index (one-time)
 
 ```bash
-python scripts/index_data.py --input EJournals_database.xlsx --force
+python -m scripts.index_data --input EJournals_database.xlsx --force
 ```
 
 This step reads the Excel dataset, generates semantic embeddings for every journal, and builds the FAISS vector index. It takes a few minutes on the first run (the model is downloaded automatically).
