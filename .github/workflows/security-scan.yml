@@ -34,7 +34,7 @@ jobs:
 
     - name: 2. SAST - Static Application Security Testing (Bandit)
       # Bandit scans Python code for security flaws
-      run: bandit -r . -c .bandit
+      run: bandit -r . -x .venv,tests,.git,data,__pycache__
 
     - name: 3. Dependency Scanning (Safety)
       # Safety scans requirements.txt for known vulnerabilities

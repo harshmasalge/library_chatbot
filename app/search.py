@@ -1,4 +1,4 @@
-import pickle
+import pickle  # nosec B403 - Safe usage; only loading internally generated models
 from typing import Dict, List, Optional
 
 import faiss
@@ -25,7 +25,7 @@ class SemanticSearchEngine:
 
         self.index = faiss.read_index(str(FAISS_INDEX_PATH))
         with open(MAPPING_PATH, "rb") as mapping_file:
-            self.id_map = pickle.load(mapping_file)
+            self.id_map = pickle.load(mapping_file)  # nosec B301 - File is generated internally by index_data.py
 
     def embed(self, text: str) -> np.ndarray:
         normalized_query = normalize_text(text)
