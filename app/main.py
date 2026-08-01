@@ -50,9 +50,9 @@ def health_check() -> dict:
     return {"status": "ok"}
 
 
-@app.get("/")
-def root() -> dict:
-    return {"message": "IITGN E-Journal Discovery Assistant", "docs": "/docs", "health": "/health"}
+# @app.get("/")
+# def root() -> dict:
+#     return {"message": "IITGN E-Journal Discovery Assistant", "docs": "/docs", "health": "/health"}
 
 
 @app.post("/search", response_model=SearchResponse)
@@ -84,7 +84,7 @@ def get_journal(journal_id: int) -> JournalItem:
         return JournalItem.model_validate(journal)
 
 
-@app.get("/ui")
+@app.get("/")
 def serve_ui() -> FileResponse:
     ui_file = Path(__file__).parent / "static" / "index.html"
     if not ui_file.exists():

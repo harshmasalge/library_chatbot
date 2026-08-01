@@ -1,12 +1,15 @@
 # Use an official Python lightweight image
 FROM python:3.11-slim
 
-# Set environment variables to ensure Python output is logged properly
+# Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # Set the working directory
 WORKDIR /app
+
+# Install curl (needed by entrypoint.sh to download data files)
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
 # Copy only requirements first to leverage Docker layer caching
 COPY requirements.txt .
@@ -18,13 +21,11 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # Copy the rest of the application code
 COPY . .
 
-# Run the indexing script during the Docker build process.
-# This downloads the SentenceTransformer model and generates the FAISS index
-# so that the container is ready to serve traffic immediately upon starting.
-RUN python -m scripts.index_data --input EJournals_database.xlsx --force
+# Make the entrypoint script executable
+RUN chmod +x scripts/entrypoint.sh
 
 # Expose the port that FastAPI runs on
 EXPOSE 8000
 
-# Command to start the Uvicorn server
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Use entrypoint script — it downloads data if needed, then starts the server
+ENTRYPOINT ["scripts/entrypoint.sh"]

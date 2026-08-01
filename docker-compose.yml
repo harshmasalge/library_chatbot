@@ -9,3 +9,12 @@ services:
     restart: unless-stopped
     environment:
       - TOP_K_DEFAULT=10
+      # Set this to your GitHub Release base URL
+      # Example: https://github.com/harshmasalge/library_chatbot/releases/download/v1.0.0
+      - DATA_RELEASE_URL=${DATA_RELEASE_URL}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
