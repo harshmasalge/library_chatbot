@@ -34,7 +34,7 @@ resource "aws_security_group" "chatbot_sg" {
 # 2. EC2 Instance (Free Tier)
 resource "aws_instance" "chatbot_server" {
   ami           = "ami-0c55b159cbfafe1f0" # Ubuntu Server 22.04 LTS (us-east-2)
-  instance_type = "t2.micro"              # Free tier eligible
+  instance_type = "t2.micro"              # Free tier eligible — safe now that index is pre-built
   
   vpc_security_group_ids = [aws_security_group.chatbot_sg.id]
 
